@@ -13,7 +13,7 @@ def check_winner(game_result: str) -> str:
       check_winner('XXXO OXOX')
       >>>X
       print(check_winner('XX O  XOO'))
-      >>>Draw
+      >>>None
     '''
     rows = [''.join([row for row in game_result[0+row_num*3:3+row_num*3]]) for row_num in range(3)]
     columns = [''.join([cell for cell in game_result[column_num::3]]) for column_num in range(3)]
@@ -21,9 +21,9 @@ def check_winner(game_result: str) -> str:
     bdiagonal = [''.join([cell for cell in game_result[2:-1:2]])]
     all_options = rows + columns + fdiagonal + bdiagonal
     for alignment in all_options:
-        if  alignment[0] != ' ' and alignment == alignment[0] * 3:
+        if alignment[0] != ' ' and alignment == alignment[0] * 3:
             return alignment[0]
-    return 'Draw'
+    return 'Draw' if not ' ' in game_result else None
 ```
 
 As in JavaScript there's no built-in way to slice strings with step, I had to abstract away this slice-with-steps behaviour into a separate JS function.
